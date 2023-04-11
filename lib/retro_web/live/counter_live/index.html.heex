@@ -1,0 +1,13 @@
+<div>
+    <h1 class="text-4xl font-bold text-center"> The count is: <%= @val %> </h1>
+
+    <p class="text-center">
+     <.button phx-click="dec">-</.button>
+     <.button phx-click="inc">+</.button>
+     </p>
+</div>
+<div class="grid grid-cols-4 gap-4">
+    <%= for table <- 1..12 do %>
+        <.live_component module={CounterLive.Counter} id={"table #{table}"} table_number={table} />
+    <% end %>
+</div>

@@ -1,0 +1,10 @@
+<div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+  <div class="p-5">
+      <a href="#">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Table : <%= @table_number %> </h5>
+      </a>
+      <p class="mb-3 text-3xl text-gray-700 dark:text-gray-400">Score <%= @cont %> </p>
+      <buttom phx-click="inc" phx-target={ @table_number } class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700mr-2 mb-2 hover:bg-sky-700">Inc</buttom>
+      <buttom phx-click="dec" phx-target={ @table_number } class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700mr-2 mb-2 hover:bg-sky-700">Dec</buttom>
+  </div>
+</div>
