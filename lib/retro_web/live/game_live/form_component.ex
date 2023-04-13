@@ -21,6 +21,7 @@ defmodule RetroWeb.GameLive.FormComponent do
       >
         <.input field={@form[:cont]} type="number" label="Cont" />
         <.input field={@form[:name]} type="text" label="Name" />
+        <.input field={@form[:board_id]} type="select" label="Board" options={@options} />
         <:actions>
           <.button phx-disable-with="Saving...">Save Game</.button>
         </:actions>
@@ -32,11 +33,13 @@ defmodule RetroWeb.GameLive.FormComponent do
   @impl true
   def update(%{game: game} = assigns, socket) do
     changeset = Games.change_game(game)
-
+    boards = Retro.Boards.list_boards()
+    my_options = Enum.map(boards, fn x -> {x.title, x.id} end)
     {:ok,
      socket
-     |> assign(assigns)
-     |> assign_form(changeset)}
+      |> assign(options: my_options)
+      |> assign(assigns)
+      |> assign_form(changeset)}
   end
 
   @impl true
@@ -71,6 +74,7 @@ defmodule RetroWeb.GameLive.FormComponent do
   defp save_game(socket, :new, game_params) do
     case Games.create_game(game_params) do
       {:ok, game} ->
+        game = Retro.Games.get_game!(game.id)
         notify_parent({:saved, game})
 
         {:noreply,

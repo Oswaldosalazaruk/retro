@@ -18,7 +18,7 @@ defmodule Retro.Games do
 
   """
   def list_games do
-    Repo.all(Game)
+    Repo.all(Game) |> Repo.preload(:board)
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule Retro.Games do
       ** (Ecto.NoResultsError)
 
   """
-  def get_game!(id), do: Repo.get!(Game, id)
+  def get_game!(id), do: Repo.get!(Game, id) |> Repo.preload(:board)
 
   @doc """
   Creates a game.
@@ -50,9 +50,13 @@ defmodule Retro.Games do
 
   """
   def create_game(attrs \\ %{}) do
-    %Game{}
-    |> Game.changeset(attrs)
-    |> Repo.insert()
+    game = %Game{}
+      |> Game.changeset(attrs)
+    game = game.changes
+    board = Repo.get!(Retro.Boards.Board, game.board_id)
+    game = Ecto.build_assoc(board, :games, game)
+    game = Repo.insert!(game)
+    {:ok, game}
   end
 
   @doc """

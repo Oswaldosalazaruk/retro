@@ -32,6 +32,7 @@ defmodule RetroWeb.BoardLive.Index do
     |> assign(:board, nil)
   end
 
+
   @impl true
   def handle_info({RetroWeb.BoardLive.FormComponent, {:saved, board}}, socket) do
     {:noreply, stream_insert(socket, :boards, board)}
@@ -44,4 +45,5 @@ defmodule RetroWeb.BoardLive.Index do
 
     {:noreply, stream_delete(socket, :boards, board)}
   end
+
 end

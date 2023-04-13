@@ -17,8 +17,7 @@ defmodule RetroWeb.Router do
   scope "/", RetroWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
-    live "/boards", BoardLive.Index, :index
+    live "/", BoardLive.Index, :index
     live "/boards/new", BoardLive.Index, :new
     live "/boards/:id/edit", BoardLive.Index, :edit
 
@@ -30,7 +29,6 @@ defmodule RetroWeb.Router do
 
     live "/games/:id", GameLive.Show, :show
     live "/games/:id/show/edit", GameLive.Show, :edit
-    live "/counter", CounterLive.Index, :index
 
   end
 

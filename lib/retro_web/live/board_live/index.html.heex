@@ -7,36 +7,28 @@
   </:actions>
 </.header>
 
-<.table
-  id="boards"
-  rows={@streams.boards}
-  row_click={fn {_id, board} -> JS.navigate(~p"/boards/#{board}") end}
->
-  <:col :let={{_id, board}} label="Title"><%= board.title %></:col>
-  <:col :let={{_id, board}} label="Tag"><%= board.tag %></:col>
-  <:action :let={{_id, board}}>
-    <div class="sr-only">
-      <.link navigate={~p"/boards/#{board}"}>Show</.link>
-    </div>
-    <.link patch={~p"/boards/#{board}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={{id, board}}>
+<div class="mt-10 p-4">
+  <%= for {_, mesa} <- @streams.boards do %>
+         <.live_component module={RetroWeb.CounterLive.Contboard} id={"board-#{mesa.id}"} mesa={mesa} />
+  <div class="text-right">
+    <.link patch={~p"/boards/#{mesa.id}/edit"}>Edit</.link>
     <.link
-      phx-click={JS.push("delete", value: %{id: board.id}) |> hide("##{id}")}
+      phx-click={JS.push("delete", value: %{id: mesa.id}) |> hide("#{mesa.id}")}
       data-confirm="Are you sure?"
     >
       Delete
     </.link>
-  </:action>
-</.table>
+  </div>
+  <% end %>  
+</div>
 
-<.modal :if={@live_action in [:new, :edit]} id="board-modal" show on_cancel={JS.patch(~p"/boards")}>
+<.modal :if={@live_action in [:new, :edit]} id="board-modal" show on_cancel={JS.patch(~p"/")}>
   <.live_component
     module={RetroWeb.BoardLive.FormComponent}
     id={@board.id || :new}
     title={@page_title}
     action={@live_action}
     board={@board}
-    patch={~p"/boards"}
+    patch={~p"/"}
   />
 </.modal>

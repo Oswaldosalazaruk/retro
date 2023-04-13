@@ -18,7 +18,7 @@ defmodule Retro.Boards do
 
   """
   def list_boards do
-    Repo.all(Board)
+    Repo.all(Board) |> Retro.Repo.preload(:games)
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule Retro.Boards do
       ** (Ecto.NoResultsError)
 
   """
-  def get_board!(id), do: Repo.get!(Board, id)
+  def get_board!(id), do: Repo.get!(Board, id) |> Retro.Repo.preload(:games)
 
   @doc """
   Creates a board.

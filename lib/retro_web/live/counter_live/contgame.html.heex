@@ -1,0 +1,11 @@
+<div class="p-4 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+        <div class="text-center">
+          <p> Game : <%= @juego.id %> </p>
+          <p> Name : <%= @juego.name %> </p>
+          <p class="text-2xl"> Game Counter: <%= @juego.cont %> </p>
+        </div>
+         <div class="mt-5 text-center">
+            <.button class="bg-stone-300 text-red-600" phx-click="dec" phx-target={ @myself } phx-value-dec={ @juego.id } >-</.button>
+            <.button class="bg-stone-300 text-blue-600" phx-click="inc" phx-target={ @myself } phx-value-inc={ @juego.id } >+</.button>
+  </div>
+</div>

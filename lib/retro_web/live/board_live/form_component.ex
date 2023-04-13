@@ -21,6 +21,7 @@ defmodule RetroWeb.BoardLive.FormComponent do
       >
         <.input field={@form[:title]} type="text" label="Title" />
         <.input field={@form[:tag]} type="text" label="Tag" />
+        <.input field={@form[:cont]} type="number" label="Counter" />
         <:actions>
           <.button phx-disable-with="Saving...">Save Board</.button>
         </:actions>

@@ -15,7 +15,7 @@ defmodule Retro.Games.Game do
   @doc false
   def changeset(game, attrs) do
     game
-    |> cast(attrs, [:cont, :name])
-    |> validate_required([:cont, :name])
+    |> cast(attrs, [:cont, :name, :board_id])
+    |> validate_required([:cont, :name, :board_id])
   end
 end
